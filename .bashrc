@@ -41,9 +41,14 @@ export GPG_TTY
 
 ### end
 
+#Enable tab completion with sudo
+complete -cf sudo
 
 export EDITOR='vim'
 
 export PATH=$PATH:/home/do/CodeSourcery/Sourcery_G++_Lite/bin:/usr/hitech/picc/9.83/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/do/workspace/brn/./click-brn/ns/:/home/do/workspace/brn/./ns2/lib
 export PATH=/home/do/workspace/brn/./ns2/bin/:/home/do/workspace/brn/./click-brn/userlevel/:/home/do/workspace/brn/./click-brn/tools/click-align/:/home/do/workspace/brn/./helper/simulation/bin/:/home/do/workspace/brn/./helper/evaluation/bin:$PATH
+export PATH=$PATH:/opt/java/jre/bin/:$HOME/.local/bin/
+export JAVA_HOME=/opt/java
+
