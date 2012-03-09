@@ -13,10 +13,5 @@ fi
 
 # exec gnome-session
 # exec startkde
-# exec ck-launch-session dbus-launch startxfce4
-xsetroot -cursor_name left_ptr
-setxkbmap -layout de
-/usr/bin/xscreensaver -no-splash &
-xrdb -merge ~/.Xresources
-exec ck-launch-session dbus-launch xmonad
+exec ck-launch-session dbus-launch startxfce4
 # ...or the Window Manager of your choice
