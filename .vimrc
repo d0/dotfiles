@@ -14,8 +14,11 @@ set wrap
 set number
 set ruler
 
+call pathogen#infect()
 filetype plugin indent on
-syntax on
+syntax enable
+set background=dark
+colorscheme solarized
 
 highlight ExtraWhitespaces ctermbg=darkgreen guibg=lightgreen
 match ExtraWhitespaces /\s\+$/
