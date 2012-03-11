@@ -5,6 +5,7 @@
 .ICEauthority
 .Xauthority
 .aspell*
+.bash_history
 .com.zerog.registry.xml
 .esd_auth
 .gmrun-history
