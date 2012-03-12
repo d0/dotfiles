@@ -1,9 +1,3 @@
-Xft.dpi:       96
-Xft.antialias: false
-Xft.rgba: rgb
-Xft.hinting: true
-Xft.hintstyle: hintslight
-
 !-------------------------------------------------------------------------------
 ! URxvt settings
 ! Colours lifted from Solarized (http://ethanschoonover.com/solarized)
@@ -36,7 +30,7 @@ URxvt.scrollStyle: rxvt
 URxvt.scrollBar: false
 
 ! Perl extensions
-URxvt.perl-ext-common: default,matcher
+URxvt.perl-ext-common: default,matcher,tabbed
 URxvt.matcher.button: 1
 URxvt.urlLauncher: firefox
 
@@ -47,9 +41,6 @@ URxvt.cursorUnderline: false
 
 ! Pointer
 URxvt.pointerBlank: true
-
-! Add tabs to urxvt
-URxvt.perl-ext-common: default,tabbed
 
 !!SOLARIZED HEX 16/8 TERMCOL XTERM/HEX L*A*B RGB HSB
 !!--------- ------- ---- ------- ----------- ---------- ----------- -----------
