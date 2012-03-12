@@ -18,6 +18,8 @@ call pathogen#infect()
 filetype plugin indent on
 syntax enable
 set background=dark
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
 colorscheme solarized
 
 highlight ExtraWhitespaces ctermbg=darkgreen guibg=lightgreen

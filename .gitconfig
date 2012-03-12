@@ -1,0 +1,8 @@
+[user]
+	email = oepen@informatik.hu-berlin.de
+	name  = Dominik
+
+[color]
+    diff    = auto
+    status  = auto
+    branch  = auto
