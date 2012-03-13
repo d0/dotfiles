@@ -5,6 +5,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Use aliases defined in the .bash_aliases file
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 #Add colors to core utils
 alias ls='ls --color=auto'
 eval $(dircolors -b $HOME/LS_COLORS/LS_COLORS)
