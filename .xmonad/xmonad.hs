@@ -5,7 +5,7 @@ import System.Exit
 import System.IO
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers 
+import XMonad.Hooks.ManageHelpers
 import XMonad.Util.Run
 import XMonad.Util.Themes
 import XMonad.Layout.IM
@@ -20,7 +20,7 @@ import qualified Data.Map        as M
 -- -- certain contrib modules.
 -- --
 myTerminal      = "urxvt"
- 
+
 
 -- Whether focus follows the mouse pointer.
 myFocusFollowsMouse :: Bool
@@ -59,7 +59,7 @@ myFocusedBorderColor = "#05c"
 -- Key bindings. Add, modify or remove key bindings here.
 --
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
- 
+
     -- launch a terminal
     [ ((modm .|. shiftMask, xK_Return), spawn $ XMonad.terminal conf)
     -- launch dmenu
@@ -72,7 +72,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm,               xK_space ), sendMessage NextLayout)
     --  Reset the layouts on the current workspace to default
     , ((modm .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf)
-    --                                                        
+    --
     -- Resize viewed windows to the correct size
     , ((modm,               xK_n     ), refresh)
     -- Move focus to the next window
@@ -108,7 +108,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
 
     -- Restart xmonad
-    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")    
+    , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
     -- Lock the screen (xscreensaver daemon must be running)
     , ((modm              , xK_z     ), spawn "xscreensaver-command -lock")
     ] ++
@@ -132,7 +132,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
 ------------------------------------------------------------------------
 -- Layouts:
- 
+
 -- You can specify and transform your layouts by modifying these values.
 -- If you change layout bindings be sure to use 'mod-shift-space' after
 -- restarting (with 'mod-q') to reset your layout state to the new
@@ -151,19 +151,19 @@ myLayout = tiled ||| Mirror tiled ||| Full
   where
     -- default tiling algorithm partitions the screen into two panes
     tiled   = Tall nmaster delta ratio
- 
+
     -- The default number of windows in the master pane
     nmaster = 1
- 
+
     -- Default proportion of screen occupied by master pane
     ratio   = 1/2
- 
+
     -- Percent of screen to increment by when resizing panes
     delta   = 3/100
 
 ------------------------------------------------------------------------
 -- Window rules:
- 
+
 -- Execute arbitrary actions and WindowSet manipulations when managing
 -- a new window. You can use this to, for example, always float a
 -- particular program, or have a client always appear on a particular
@@ -182,14 +182,14 @@ myManageHook = composeAll
     , className =? "VirtualBox"     --> doFloat
     , className =? "Pinentry-gtk2"  --> doFloat
     , resource  =? "desktop_window" --> doIgnore
-    , resource  =? "kdesktop"       --> doIgnore 
+    , resource  =? "kdesktop"       --> doIgnore
     , isFullscreen                  --> (doF W.focusDown <+> doFullFloat)
     , isDialog                      --> doCenterFloat
     ]
 
 ------------------------------------------------------------------------
 -- Event handling
- 
+
 -- Defines a custom handler function for X Events. The function should
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
@@ -200,10 +200,10 @@ myManageHook = composeAll
 -- combining them with ewmhDesktopsEventHook.
 --
 --myEventHook = mempty
- 
+
 ------------------------------------------------------------------------
 -- Status bars and logging
- 
+
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
@@ -214,10 +214,10 @@ myManageHook = composeAll
 -- combining it with ewmhDesktopsLogHook.
 --
 -- myLogHook = return ()
- 
+
 ------------------------------------------------------------------------
 -- Startup hook
- 
+
 -- Perform an arbitrary action each time xmonad starts or is restarted
 -- with mod-q.  Used by, e.g., XMonad.Layout.PerWorkspace to initialize
 -- per-workspace layout choices.
@@ -257,7 +257,7 @@ xmonad $ defaultConfig
 
     --xmobar
     , manageHook        = manageDocks <+> manageHook defaultConfig
-    , layoutHook        = myLayouts 
+    , layoutHook        = myLayouts
     , logHook           = dynamicLogWithPP xmobarPP
         { ppOutput      = hPutStrLn xmproc
         , ppTitle       = xmobarColor "green" "" . shorten 50
