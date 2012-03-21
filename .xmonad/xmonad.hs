@@ -8,6 +8,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Util.Run
 import XMonad.Util.Themes
+import XMonad.Util.Scratchpad
 import XMonad.Layout.IM
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.NoBorders
@@ -22,7 +23,7 @@ import qualified Data.Map        as M
 myTerminal      = "urxvt"
 
 
--- Whether focus follows the mouse pointer.
+-- Whether focus follows the mouse pointer
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
 
@@ -103,7 +104,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     -- Use this binding with avoidStruts from Hooks.ManageDocks.
     -- See also the statusBar function from Hooks.DynamicLog.
     , ((modm              , xK_b     ), sendMessage ToggleStruts)
-
+    -- Spawn a scratchpad terminal
+    , ((modm              , xK_s     ), scratchpadSpawnActionTerminal myTerminal)
     -- Quit xmonad
     , ((modm .|. shiftMask, xK_q     ), io (exitWith ExitSuccess))
 
@@ -177,7 +179,7 @@ myLayout = tiled ||| Mirror tiled ||| Full
 -- 'className' and 'resource' are used below.
 --
 myManageHook = composeAll
-    [ className =? "MPlayer"        --> doFloat
+    ([ className =? "MPlayer"        --> doFloat
     , className =? "Gimp"           --> doFloat
     , className =? "VirtualBox"     --> doFloat
     , className =? "Pinentry-gtk2"  --> doFloat
@@ -185,8 +187,18 @@ myManageHook = composeAll
     , resource  =? "kdesktop"       --> doIgnore
     , isFullscreen                  --> (doF W.focusDown <+> doFullFloat)
     , isDialog                      --> doCenterFloat
-    ]
+    ]) <+> manageScratchPad
 
+-- then define your scratchpad management separately:
+manageScratchPad :: ManageHook
+manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
+
+  where
+
+    h = 0.1     -- terminal height, 10%
+    w = 1       -- terminal width, 100%
+    t = 1 - h   -- distance from top edge, 90%
+    l = 1 - w   -- distance from left edge, 0%
 ------------------------------------------------------------------------
 -- Event handling
 
