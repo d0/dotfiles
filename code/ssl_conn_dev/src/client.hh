@@ -23,9 +23,6 @@ public:
 	void connect();
 
 private:
-	void SendPendingHandshakeData(tcp::socket *socket, BIO *bioOut);
-	void StoreDataForSendingLater(unsigned char *buf, int len);
-	void ReceiveHandshakeData(tcp::socket *socket, BIO *bioIn);
 
 
 };

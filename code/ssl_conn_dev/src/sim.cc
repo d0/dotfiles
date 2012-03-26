@@ -25,11 +25,11 @@ int main() {
 	 * 3. SSL-Verbindung aufbauen. Dieser Teil soll später portiert werden.
 	 */
 
+
 	Client client = Client();
 	Server server = Server();
 
 	boost::thread server_t(server);
-	boost::this_thread::sleep(boost::posix_time::seconds(1));
 	boost::thread client_t(client);
 
 	server_t.join();

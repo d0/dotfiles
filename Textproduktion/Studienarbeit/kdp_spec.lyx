@@ -1,0 +1,456 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass scrartcl
+\begin_preamble
+\usepackage[flushleft, neverdecrease]{paralist}	%flushleft, damit bei Aufzählungen die römischen Zahlen links stehen; nodecrease für einen gleichen Abstand zwischen Zahlen und Text
+\usepackage{booktabs} % Klasse zur Erstellung von schönen, mehrzeiligen Tabellen
+\usepackage{tabularx} % Weitere Klasse zum erstellen von Tabellen
+% \usepackage{newalg} % Packet zum Erstellen von Algorithmen
+% \usepackage{fancyhdr}% Mit dieser Klasse lassen umfangreiche Kopf- und Fusszeilen aufbauen
+\usepackage{bytefield}
+\usepackage{graphicx} % Diese Klasse ermöglicht das Arbeiten mit Grafiken
+
+\graphicspath{{grafiken/}} % Setzt einen Standardpfad für alle Grafiken. So muss der Pfad beim Einbinden von Grafiken nicht mehr vollständig angegeben werden, sondern nur der Name der Datei! (siehe z.B. Humboldtsiegel)
+
+%Einstellungen der Seitenränder
+%\usepackage[inner=2.3cm,outer=4.6cm,top=3.3cm,bottom=6.6cm,includeheadfoot]{geometry}
+
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{libertine}
+%\usepackage{garamond}
+
+%opening
+\title{Dokument}
+\author{Christian Ricardo Kühne}
+\date{}
+\end_preamble
+\options a4paper
+\use_default_options true
+\maintain_unincluded_children false
+\language ngerman
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing other 1.2
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 23mm
+\topmargin 33mm
+\rightmargin 46mm
+\bottommargin 66mm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language german
+\papercolumns 1
+\papersides 1
+\paperpagestyle headings
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Subsection
+Spezifikation des Schlüsselverteilungsprotokolls
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+mit subfigure kann grafiken neben einander stellen
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Bei dem Schlüsselverteilungsprotokoll handelt es sich um ein einfaches Call-and-
+Response-Protokoll mit einem Roundtripp.
+ 
+\end_layout
+
+\begin_layout Minisec
+Verfahren
+\end_layout
+
+\begin_layout Minisec
+Nachrichtentyp 
+\begin_inset Quotes gld
+\end_inset
+
+KDP-Request
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+KDP-Request werden vom Client an den Server verschickt.
+ Die Nachricht beinhaltet ein Typen-Feld, mit dem der Client die Art des
+ Schlüsselmaterials bestimmt, und ein Feld mit der eigenen MAC-Adresse als
+ Identifikator.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+center
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{bytefield}{32}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+bitheader{0-31} 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+bitbox{8}{type} & 
+\backslash
+bitbox{24}{MAC} 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+bitbox{24}{MAC} & 
+\backslash
+bitbox{8}{padding}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{bytefield} 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Aufbau einer KDP-Request-Nachricht
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Minisec
+Nachrichtentyp 
+\begin_inset Quotes gld
+\end_inset
+
+KDP-Response
+\begin_inset Quotes grd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Das Typ-Feld aus dem KDP-Request bestimmt die Form des KDP-Response.
+ In einer simplifizierten Form existieren KDP-Responses für die beiden Modi
+ 
+\begin_inset Quotes gld
+\end_inset
+
+client-driven
+\begin_inset Quotes grd
+\end_inset
+
+ und 
+\begin_inset Quotes gld
+\end_inset
+
+server-driven
+\begin_inset Quotes grd
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+center
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{bytefield}{32}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+bitheader{0-31} 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+bitbox{32}{timestamp} 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+wordbox{2}{seed(8 Byte)} 
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{bytefield}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Aufbau einer KDP-Response-Nachrichten für die 
+\begin_inset Quotes gld
+\end_inset
+
+client-driven
+\begin_inset Quotes grd
+\end_inset
+
+-Variante
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+center
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{bytefield}{32}
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+bitheader{0-31} 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+bitbox{32}{timestamp} 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	
+\backslash
+bitbox{8}{cnt(keys)} & 
+\backslash
+bitbox{8}{klen(16 Byte) } & 
+\backslash
+bitbox{16}{optional} 
+\backslash
+
+\backslash
+
+\end_layout
+
+\begin_layout Plain Layout
+
+		
+\backslash
+wordbox{3}{keylist}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{bytefield}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Aufbau einer KDP-Response-Nachrichten für die 
+\begin_inset Quotes gld
+\end_inset
+
+client-driven
+\begin_inset Quotes grd
+\end_inset
+
+-Variante
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

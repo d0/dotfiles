@@ -10,6 +10,8 @@
 
 #include <openssl/ssl.h>
 #include <boost/asio.hpp>
+
+using namespace std;
 using boost::asio::ip::tcp;
 
 class Server {
@@ -18,11 +20,9 @@ public:
 	~Server();
 
 	void operator()();
-	void listen();
 
 private:
-	void SendPendingHandshakeData(tcp::socket *socket, BIO *bioOut);
-	void ReceiveHandshakeData(tcp::socket *socket, BIO *bioIn);
+
 
 };
 
