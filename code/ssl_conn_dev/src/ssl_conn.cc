@@ -19,16 +19,16 @@ SSL_CONN::SSL_CONN(tcp::socket *_socket, string _role) {
 	if (_role != "SERVER" && _role != "CLIENT")
 		exit(1);
 
-	socket 				= _socket;
-	role 				= _role;
+	socket  				= _socket;
+	role    				= _role;
 
 	SSL_library_init();
-	SSL_METHOD *meth 	= (role=="CLIENT")? TLSv1_client_method() : TLSv1_server_method();
-	ctx 				= SSL_CTX_new(meth);
-	conn 				= SSL_new(ctx);
-	bioIn 				= BIO_new(BIO_s_mem());
-	bioOut 				= BIO_new(BIO_s_mem());
-	bio_err 			= BIO_new_fp(stderr, BIO_NOCLOSE);
+	const SSL_METHOD *meth 	= (role=="CLIENT")? TLSv1_client_method() : TLSv1_server_method();
+	ctx     				= SSL_CTX_new(meth);
+	conn    				= SSL_new(ctx);
+	bioIn   				= BIO_new(BIO_s_mem());
+	bioOut  				= BIO_new(BIO_s_mem());
+	bio_err      			= BIO_new_fp(stderr, BIO_NOCLOSE);
 	SSL_set_bio(conn,bioIn,bioOut); // connect the ssl-object to the bios
 
 	// todo:
@@ -118,7 +118,7 @@ void SSL_CONN::rcv_data() {
 	while(socket->available()>0) {
 
 		// blocking socket
-		int len = socket->receive(boost::asio::buffer(&buf, sizeof(buf)), NULL);
+		int len = socket->receive(boost::asio::buffer(&buf, sizeof(buf)));
 		BIO_write(bioIn,buf,len);
 
 		cout << role << ": rcv " << len << " bytes" << endl;
