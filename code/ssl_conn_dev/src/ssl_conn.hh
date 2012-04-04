@@ -12,18 +12,19 @@
 using namespace std;
 using boost::asio::ip::tcp;
 
-
+enum role {SERVER, CLIENT};
 
 
 
 class SSL_CONN{
 public:
-	SSL_CONN(tcp::socket *socket, string _role);
+	SSL_CONN(tcp::socket *socket, enum role _role);
 	~SSL_CONN();
 
 	void start();
 private:
-	string role;
+	enum role role;
+	string str_role;
 
 	SSL_CTX *ctx;
 	SSL* conn;
@@ -37,6 +38,6 @@ private:
 	void rcv_data();
 };
 
-
+int pem_passwd_cb(char *buf, int size, int rwflag, void *userdata);
 
 #endif /* SSL_CONN_HH_ */

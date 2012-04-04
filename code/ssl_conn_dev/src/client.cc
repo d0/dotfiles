@@ -54,7 +54,7 @@ void Client::operator()() {
 		socket.send(boost::asio::buffer(&data, length_field));
 		 */
 
-		SSL_CONN s(&socket, "CLIENT");
+		SSL_CONN s(&socket, CLIENT);
 		s.start();
 
 

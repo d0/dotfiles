@@ -47,7 +47,7 @@ void Server::operator()() {
 		socket.receive(boost::asio::buffer(&data, length_field), NULL, ec);
 		cout << "Server: rcved " << data << endl;
 		*/
-		SSL_CONN s(&socket, "SERVER");
+		SSL_CONN s(&socket, SERVER);
 		s.start();
 
 		cout << "Server: Closing" << endl;
