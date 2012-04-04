@@ -15,8 +15,27 @@ set number
 set ruler
 
 call pathogen#infect()
-filetype plugin indent on
+
 syntax enable
+set ofu=syntaxcomplete#Complete
+if v:version >= 600
+    filetype plugin on
+    filetype indent on
+else
+    filetype on
+endif
+
+if v:version >= 700
+    set omnifunc=syntaxcomplete#Complete " override built-in C omnicomplete with C++ OmniCppComplete plugin
+    let OmniCpp_GlobalScopeSearch   = 1
+    let OmniCpp_DisplayMode         = 1
+    let OmniCpp_ShowScopeInAbbr     = 0 "do not show namespace in pop-up
+    let OmniCpp_ShowPrototypeInAbbr = 1 "show prototype in pop-up
+    let OmniCpp_ShowAccess          = 1 "show access in pop-up
+    let OmniCpp_SelectFirstItem     = 1 "select first item in pop-up
+    set completeopt=menuone,menu,longest
+endif
+
 set background=dark
 let g:solarized_termtrans=1
 let g:solarized_termcolors=256
