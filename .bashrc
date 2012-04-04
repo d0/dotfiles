@@ -12,7 +12,7 @@ fi
 
 #Source git bash completion scripts so that __git_ps1 is defined
 #see: https://mailman.archlinux.org/pipermail/arch-general/2012-March/025886.html
-source /usr/share/bash-completion/completions/git
+#source /usr/share/bash-completion/completions/git
 
 #Add colors to core utils
 alias ls='ls --color=auto'
