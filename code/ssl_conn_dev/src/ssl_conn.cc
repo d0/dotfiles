@@ -24,7 +24,7 @@ SSL_CONN::SSL_CONN(tcp::socket *_socket, enum role _role) {
 	str_role 			= (role==CLIENT) ? "CLIENT":"SERVER";
 
 	SSL_library_init();
-	SSL_METHOD *meth 	= (role==CLIENT)? TLSv1_client_method() : TLSv1_server_method();
+	const SSL_METHOD *meth 	= (role==CLIENT)? TLSv1_client_method() : TLSv1_server_method();
 	ctx 				= SSL_CTX_new(meth);
 	conn 				= SSL_new(ctx);
 	bioIn 				= BIO_new(BIO_s_mem());
@@ -140,7 +140,7 @@ void SSL_CONN::rcv_data() {
 	while(socket->available()>0) {
 
 		// blocking socket
-		int len = socket->receive(boost::asio::buffer(&buf, sizeof(buf)), NULL);
+		int len = socket->receive(boost::asio::buffer(&buf, sizeof(buf)));
 		BIO_write(bioIn,buf,len);
 
 
