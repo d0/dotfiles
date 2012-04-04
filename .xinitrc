@@ -18,7 +18,7 @@ xsetroot -cursor_name left_ptr
 setxkbmap -layout de
 /usr/bin/xscreensaver -no-splash &
 xrdb -merge ~/.Xresources
-nitrogen --restore
+#nitrogen --restore
 exec ck-launch-session dbus-launch xmonad
 
 #exec ck-launch-session dbus-launch startxfce4
