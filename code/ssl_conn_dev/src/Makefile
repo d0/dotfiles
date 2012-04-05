@@ -1,5 +1,5 @@
 CPP = g++
-CFLAGS = -Wall -Wextra
+CPPFLAGS = -Wall -Wextra -pedantic
 LDFLAGS = -lboost_system -lboost_thread -lssl -lcrypto -lpthread
 
 OBJ = ssl_conn.o client.o server.o sim.o
