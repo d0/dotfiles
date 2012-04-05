@@ -1,0 +1,490 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass scrartcl
+\begin_preamble
+\usepackage[flushleft, neverdecrease]{paralist}	%flushleft, damit bei Aufzählungen die römischen Zahlen links stehen; nodecrease für einen gleichen Abstand zwischen Zahlen und Text
+
+% \usepackage{newalg} % Packet zum Erstellen von Algorithmen
+\usepackage{amsmath}
+\usepackage{bytefield}
+
+\usepackage{booktabs} % Klasse zur Erstellung von schönen, mehrzeiligen Tabellen
+\usepackage{tabularx} % Weitere Klasse zum erstellen von Tabellen
+% \usepackage{fancyhdr}% Mit dieser Klasse lassen umfangreiche Kopf- und Fusszeilen aufbauen
+\usepackage{graphicx} % Diese Klasse ermöglicht das Arbeiten mit Grafiken
+
+\graphicspath{{grafiken/}} % Setzt einen Standardpfad für alle Grafiken. So muss der Pfad beim Einbinden von Grafiken nicht mehr vollständig angegeben werden, sondern nur der Name der Datei! (siehe z.B. Humboldtsiegel)
+
+%Einstellungen der Seitenränder
+%\usepackage[inner=2.3cm,outer=4.6cm,top=3.3cm,bottom=6.6cm,includeheadfoot]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{libertine}
+%\usepackage{garamond}
+
+%opening
+\title{Dokument}
+\author{Christian Ricardo Kühne}
+\date{}
+\end_preamble
+\options a4paper
+\use_default_options true
+\maintain_unincluded_children false
+\language ngerman
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing other 1.2
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 23mm
+\topmargin 33mm
+\rightmargin 46mm
+\bottommargin 66mm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language german
+\papercolumns 1
+\papersides 1
+\paperpagestyle headings
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Eine Studienarbeit zum Einsatz eines zentralen Authentisierungssystems in
+ Wireless Mesh Networks
+\end_layout
+
+\begin_layout Author
+crk
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Für die Einführungskapitel Texte verwenden, die ich für meine Motivation
+ geschrieben habe.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Einführung
+\end_layout
+
+\begin_layout Standard
+Untersuchungsgegenstand: Backbone-Sicherheit in Wireless Mesh Networks (WMNs),
+ eine Machbarkeitsstudie für den Einsatz zentralisierter Authentisierungssysteme
+, wobei das Ziel in erster Linie die Reproduktion des Teilsystems (Backbone)
+ ist und optional eine Verbesserung.
+\end_layout
+
+\begin_layout Standard
+Hier muss in kurzen Schritte erläutert werden, was es mit der MobiSEC-Sicherheit
+sarchitektur auf sich hat, um daraus die eigentlichen Problemstellungen
+ hervorzuheben, die es zu untersuchen gilt.
+ 
+\end_layout
+
+\begin_layout Section
+Charakteristika des untersuchten WMNs
+\end_layout
+
+\begin_layout Standard
+Hier die Beschreibung der Eigenschaften der Netzwerkklasse von WMNs, auf
+ die ich mich beschränkt habe.
+\end_layout
+
+\begin_layout Section
+Angreifermodelle
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Bedrohungs-/Risikoanalyse
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Hier müssen Angriffsklassen und -Szenarien ausgebreitet werden, die sich
+ auf den von mir betrachteten Netzwerktyp beziehen.
+ Erst hieraus lässt sich eine Beschäftigung mit der MobiSEC-Sicherheitsarchitekt
+ur motivieren.
+ 
+\end_layout
+
+\begin_layout Section
+Untersuchung des MobiSEC
+\end_layout
+
+\begin_layout Subsection
+Aufbau
+\end_layout
+
+\begin_layout Subsubsection
+Verbindungssicherheit im Backbone
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Frage: 
+\end_layout
+
+\begin_layout Plain Layout
+Kann es passieren, dass ein Mesh-Router beide Phase erneut durchgehen muss?
+\end_layout
+
+\begin_layout Plain Layout
+Antwort: 
+\end_layout
+
+\begin_layout Plain Layout
+Ja.
+ Sollte der Mesh-Router längere Zeit vom Backbone entbunden worden sein,
+ so dass er nicht mehr die Möglichkeit hatte, entweder die neuen Schlüssellisten
+ (Server-driven) oder die Schlüsselparameter (client-driven) zu erhalten,
+ verliert er die Fähigkeit, sich über WEP einzuwählen.
+ Denn zum einen sind seine letzen Schlüssel nicht mehr gültig und zum anderen
+ besitzt er keine neuen validen Schlüssel mehr.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Frage:
+\end_layout
+
+\begin_layout Plain Layout
+Warum lässt sich nicht ein Protokoll erstellen, dass nur mit TLS arbeitet
+ und zwei verschiedene (asymmetrische) Schlüsselklassen verwendet? Eine
+ für die Mesh-Client und eine andere für das Backbone.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+Antwort: 
+\end_layout
+
+\begin_layout Plain Layout
+Dies hängt damit zusammen, dass TLS nicht für die Zugangskontrolle und Etablieru
+ng physikalischer wireless-Links konzipiert wurde.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Vertrauensmodell
+\end_layout
+
+\begin_layout Itemize
+Sind Informationstechnische Systeme hinreichend komplex, ist es nicht mehr
+ offensichtlich, worauf die Sicherheit beruht.
+ Vertrauensmodell sind ein Versuch, diese Komplexität auch wichtige Aspekte
+ zu reduzieren, um das Vertrauen in diese Systeme zurück zu gewinnen.
+ Aus diesem Grund muss das Vertrauensmodell nach einer groben Übersicht
+ über die technische Struktur und Funktionsweise offengelegt werden, um
+ das Projekt zu motivieren.
+ 
+\end_layout
+
+\begin_layout Itemize
+Nach Dominik: Vertrauensmodell basiert auf Unterschriften und Einzigartigkeit
+ der CA
+\end_layout
+
+\begin_layout Section
+Untersuchung von Schwachstellen / problematische Aspekte
+\end_layout
+
+\begin_layout Standard
+Hierunter fallen die gesammelten kritischen Fragen, die ich durch meine
+ Studienarbeit untersuchen möchte.
+ 
+\end_layout
+
+\begin_layout Standard
+Zuverlässigkeit der Sicherheitsarchitektur
+\end_layout
+
+\begin_layout Itemize
+Wie ist die Netzwerklast in der Authentisierungsphase?
+\end_layout
+
+\begin_layout Itemize
+Wie verhält sich das System bei einem größeren Testbed? (Robustheit und
+ Skalierbarkeit; Ist die Verfügbarkeit des Authentisierungsservers in größeren
+ Netzen tatsächlich gewährleistet?)
+\end_layout
+
+\begin_layout Itemize
+Sind DoS-Angriffe dadurch denkbar?
+\end_layout
+
+\begin_layout Standard
+Sicherheit der Sicherheitsarchitektur
+\end_layout
+
+\begin_layout Itemize
+Sind neue Angriffe auf das Protokoll möglich? (z.
+ B.
+ in Umbruchsphasen oder durch Kommunikationsabbruch; sind neue Angriffsvektoren
+ mit wachsender Netzgröße möglich?)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Hinweis von Dom: Wenn TLS-Handshake in der Schlüsselverteilungsphase nicht
+ richtig funktioniert, müssen sowohl Phase 1 als auch 2 erneut durchlaufen
+ werden.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Sicherheitsanalyse
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+bekannte Sicherheitslücken in WEP, MD5, NTP (wird im RFC erklärt)
+\end_layout
+
+\begin_layout Itemize
+Herr Dr.
+ Müller: Was kann und was kann der Angreifer nicht? Welche Stellschrauben
+ gibt es? 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Angriff auf NTP möglich durch das Abschätzen der Paketgröße? Hier scheint
+ es schon viel Forschung gegeben zu haben (seit den 1980er): »The NTP specificat
+ion assumes that the goal of the intruder is to inject false time values,
+ disrupt the protocol, or clog the network, servers, or clients with spurious
+ packets that exhaust resources and deny service to legitimate applications.
+ [...] However, these mechanisms do not securely identify and authenticate
+ servers to clients.«
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citet
+after "S. 56"
+key "Mills2010"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ Interessant hierzu auch die Annahmen des Vertrauensmodell auf 
+\begin_inset CommandInset citation
+LatexCommand citet
+after "S. 57"
+key "Mills2010"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Was kann ein Angreifen bewirken, wenn es dir Kontrolle über einen Mesh-Router
+ erlangt hat?
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Merkt sich der Authentisierungsserver die Sessions?
+\end_layout
+
+\begin_layout Itemize
+Gibt es prinzipielle Sichreitslücken?
+\end_layout
+
+\begin_layout Itemize
+Lässt sich ein formales Verfahren für die Bewertung der Sicherheit erstellen?
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "kdp_spec.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "Netzwerklast-Analyse.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand input
+filename "software-design.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Offene Fragen
+\end_layout
+
+\begin_layout Itemize
+Lässt sich eine PKI-Lösung in Form von Selbstorganisation umsetzen?
+\end_layout
+
+\begin_layout Itemize
+Tolja: Lässt sich die Fehlertoleranz durch redundant gestaltete Authentisierungs
+server erhöhen?
+\end_layout
+
+\begin_layout Itemize
+Security-Engineering als Ingenieurstätigkeit (interessant)
+\begin_inset Foot
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citet
+after "S. 158"
+key "Eckert2008"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Authentisierungsparadigmen.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "Angriffe_Angreifermodell.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+btprint "btPrintAll"
+bibfiles "/home/aureliano/Uni/11.Sem-11-12/Studienarbeit/Quellen/quellen"
+options "plainnat"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

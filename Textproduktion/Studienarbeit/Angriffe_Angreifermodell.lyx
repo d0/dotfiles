@@ -1,0 +1,164 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass scrartcl
+\begin_preamble
+\usepackage[flushleft, neverdecrease]{paralist}	%flushleft, damit bei Aufzählungen die römischen Zahlen links stehen; nodecrease für einen gleichen Abstand zwischen Zahlen und Text
+\usepackage{booktabs} % Klasse zur Erstellung von schönen, mehrzeiligen Tabellen
+\usepackage{tabularx} % Weitere Klasse zum erstellen von Tabellen
+% \usepackage{newalg} % Packet zum Erstellen von Algorithmen
+% \usepackage{fancyhdr}% Mit dieser Klasse lassen umfangreiche Kopf- und Fusszeilen aufbauen
+\usepackage{graphicx} % Diese Klasse ermöglicht das Arbeiten mit Grafiken
+
+\graphicspath{{grafiken/}} % Setzt einen Standardpfad für alle Grafiken. So muss der Pfad beim Einbinden von Grafiken nicht mehr vollständig angegeben werden, sondern nur der Name der Datei! (siehe z.B. Humboldtsiegel)
+
+%Einstellungen der Seitenränder
+%\usepackage[inner=2.3cm,outer=4.6cm,top=3.3cm,bottom=6.6cm,includeheadfoot]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{libertine}
+%\usepackage{garamond}
+
+%opening
+\title{Dokument}
+\author{Christian Ricardo Kühne}
+\date{}
+\end_preamble
+\options a4paper
+\use_default_options true
+\language ngerman
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize 12
+\spacing other 1.2
+\use_hyperref false
+\papersize a4paper
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\cite_engine natbib_authoryear
+\use_bibtopic false
+\paperorientation portrait
+\leftmargin 23mm
+\topmargin 33mm
+\rightmargin 46mm
+\bottommargin 66mm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language german
+\papercolumns 1
+\papersides 1
+\paperpagestyle headings
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Sicherheitsziele
+\end_layout
+
+\begin_layout Itemize
+Sicherheitsziele für ad-hoc wireless mesh networks hier  ein bisschen zusammenge
+fasst
+\end_layout
+
+\begin_layout Itemize
+in ihrem paper definieren die Autoren Zhou und Haas die Eigenschaften von
+ Sicherheit als: availability, confidentiality, integrity, authen- tication,
+ and non-repudiation.
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Zhou1999"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+key-management ist eines der wichtigsten Aufgaben
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+\begin_inset CommandInset citation
+LatexCommand citet
+after "S. 29"
+key "Akyildiz2005"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Section
+Angriffsklassen für WMNs
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+eavesdropping
+\end_layout
+
+\begin_layout Itemize
+message relaying 
+\end_layout
+
+\begin_layout Itemize
+message distortion 
+\end_layout
+
+\begin_layout Itemize
+MIM 
+\end_layout
+
+\begin_layout Itemize
+active impersonateing 
+\end_layout
+
+\begin_layout Itemize
+DoS-Angriffe
+\end_layout
+
+\begin_layout Section
+Angreifermodell in WMN
+\end_layout
+
+\begin_layout Standard
+Hier TExt
+\end_layout
+
+\end_body
+\end_document
