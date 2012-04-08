@@ -16,6 +16,13 @@
 #include "ssl_conn.hh"
 
 
+int main() {
+	Client client = Client();
+	client.connect();
+	return 0;
+}
+
+
 Client::Client() {
 	cout << "Client: Starting client" << endl;
 
@@ -25,7 +32,7 @@ Client::~Client() {
 	// destructor
 }
 
-void Client::operator()() {
+void Client::connect() {
 
 
 	try {

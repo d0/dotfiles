@@ -7,12 +7,17 @@
 #include <openssl/ssl.h>
 #include <openssl/err.h>
 #include <boost/asio.hpp>
-#include <boost/thread.hpp>
 #include <iostream>
 #include <string>
 
 #include "server.hh"
 #include "ssl_conn.hh"
+
+int main() {
+	Server server = Server();
+	server.start();
+	return 0;
+}
 
 
 Server::Server() {
@@ -23,7 +28,7 @@ Server::~Server() {
 
 }
 
-void Server::operator()() {
+void Server::start() {
 
 	try {
 		boost::asio::io_service io_service;

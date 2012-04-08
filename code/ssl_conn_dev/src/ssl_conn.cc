@@ -45,12 +45,12 @@ SSL_CONN::SSL_CONN(tcp::socket *_socket, enum role _role) {
 	}
 
 	if(role==CLIENT) {
-		SSL_CTX_use_certificate_file(ctx, "certs/client.pem", SSL_FILETYPE_PEM);
-		SSL_CTX_use_RSAPrivateKey_file(ctx, "certs/key.pem", SSL_FILETYPE_PEM);
+		SSL_CTX_use_certificate_file(ctx, "../certs/client.pem", SSL_FILETYPE_PEM);
+		SSL_CTX_use_RSAPrivateKey_file(ctx, "../certs/key.pem", SSL_FILETYPE_PEM);
 
 	} else if(role==SERVER) {
-		SSL_CTX_use_certificate_file(ctx, "certs/demoCA/cacert.pem", SSL_FILETYPE_PEM);
-		SSL_CTX_use_RSAPrivateKey_file(ctx, "certs/demoCA/private/cakey.pem", SSL_FILETYPE_PEM);
+		SSL_CTX_use_certificate_file(ctx, "../certs/demoCA/cacert.pem", SSL_FILETYPE_PEM);
+		SSL_CTX_use_RSAPrivateKey_file(ctx, "../certs/demoCA/private/cakey.pem", SSL_FILETYPE_PEM);
 	}
 
 	if(!SSL_CTX_check_private_key(ctx)) {
@@ -60,6 +60,7 @@ SSL_CONN::SSL_CONN(tcp::socket *_socket, enum role _role) {
 }
 
 SSL_CONN::~SSL_CONN() {
+	// todo ...
 	ERR_free_strings();
 	cout << "deconstructor end" << endl;
 }
@@ -71,8 +72,6 @@ SSL_CONN::~SSL_CONN() {
 void SSL_CONN::start() {
 	// Start SSL-connection as client
 	(role==CLIENT)? SSL_set_connect_state(conn) : SSL_set_accept_state(conn);
-
-	if (SSL_DEBUG) cout << str_role << ": " << SSL_get_cipher_list(conn, 0) << endl;
 
 	int done = 0;
 	while (!done) {
@@ -86,7 +85,7 @@ void SSL_CONN::start() {
 		 * get the error SSL_ERROR_WANT_WRITE. It's up to us to send
 		 * the data every now and then. So I am doing it here.
 		 */
-		if(role==CLIENT) snd_data();
+		snd_data();
 
 		/* The SSL_get_error() call categorizes errors into groups */
 		switch (SSL_get_error(conn, temp)) {
@@ -96,7 +95,8 @@ void SSL_CONN::start() {
 			break;
 		case SSL_ERROR_SSL:
 			/* Handshake error - report and exit. */
-			if (SSL_DEBUG) cout << str_role <<  " ERROR: Handshake failure\n" << endl;
+			if (SSL_DEBUG) cout << str_role << ": available " << SSL_get_cipher_list(conn, 0) << endl;
+			if (SSL_DEBUG) cout << str_role << ": ERROR: Handshake failure\n" << endl;
 			print_err();
 			break;
 		case SSL_ERROR_SYSCALL:
@@ -138,26 +138,24 @@ void SSL_CONN::start() {
 
 void SSL_CONN::rcv_data() {
 
-	if (SSL_DEBUG) cout << str_role << ": Looking for Handshake data " << endl;
+	if (SSL_DEBUG) cout << str_role << ": Check read buffer ... " << endl;
 
-	unsigned char buf[256];
+	unsigned char buf[1024];
 	while(socket->available()>0) {
 
 		// blocking socket
 		int len = socket->receive(boost::asio::buffer(&buf, sizeof(buf)));
 		BIO_write(bioIn,buf,len);
 
-
 		if (SSL_DEBUG) cout << str_role << ": rcv " << len << " bytes" << endl;
 	}
 }
 
 void SSL_CONN::snd_data() {
-	if (SSL_DEBUG) cout << str_role << ": send handshake data ... " << endl;
+	if (SSL_DEBUG) cout << str_role << ": Check send buffer ... " << endl;
 
 	unsigned char buf[1024];
 	while(BIO_ctrl_pending(bioOut) > 0) {
-
 		int len = BIO_read(bioOut,buf,sizeof(buf));
 		socket->send(boost::asio::buffer(buf, len));
 
