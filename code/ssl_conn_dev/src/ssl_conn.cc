@@ -6,9 +6,9 @@
  */
 
 #include <iostream>
+#include <unistd.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
-#include <boost/thread.hpp>
 #include <boost/asio.hpp>
 #include <string>
 
@@ -23,8 +23,8 @@ SSL_CONN::SSL_CONN(tcp::socket *_socket, enum role _role) {
 	role 				= _role;
 	str_role 			= (role==CLIENT) ? "CLIENT":"SERVER";
 
-	SSL_library_init();
 	SSL_load_error_strings();
+	SSL_library_init();
 
 	SSL_METHOD *meth 	= (role==CLIENT)? TLSv1_client_method() : TLSv1_server_method();
 	ctx 				= SSL_CTX_new(meth);
@@ -131,10 +131,8 @@ void SSL_CONN::start() {
 			if (SSL_DEBUG) cout << str_role << ": socket closed\n" << endl;
 			break;
 		}
-
-		boost::this_thread::sleep(boost::posix_time::seconds(1));
+		sleep(1);
 	}
-
 }
 
 
