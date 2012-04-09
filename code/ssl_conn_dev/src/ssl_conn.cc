@@ -6,9 +6,9 @@
  */
 
 #include <iostream>
+#include <unistd.h>
 #include <openssl/ssl.h>
 #include <openssl/err.h>
-#include <boost/thread.hpp>
 #include <boost/asio.hpp>
 #include <string>
 
@@ -23,8 +23,10 @@ SSL_CONN::SSL_CONN(tcp::socket *_socket, enum role _role) {
 	role 				= _role;
 	str_role 			= (role==CLIENT) ? "CLIENT":"SERVER";
 
+	SSL_load_error_strings();
 	SSL_library_init();
-	const SSL_METHOD *meth 	= (role==CLIENT)? TLSv1_client_method() : TLSv1_server_method();
+
+	SSL_METHOD *meth 	= (role==CLIENT)? TLSv1_client_method() : TLSv1_server_method();
 	ctx 				= SSL_CTX_new(meth);
 	conn 				= SSL_new(ctx);
 	bioIn 				= BIO_new(BIO_s_mem());
@@ -36,30 +38,36 @@ SSL_CONN::SSL_CONN(tcp::socket *_socket, enum role _role) {
 	SSL_CTX_set_default_passwd_cb(ctx, &pem_passwd_cb); //passphrase for both the same
 	SSL_CTX_set_default_passwd_cb_userdata(ctx, password);
 
-	if(!SSL_CTX_set_cipher_list(ctx, "TLS_RSA_WITH_DES_CBC_SHA")){ // something wrong here: SSLerr(SSL_F_SSL_CTX_SET_CIPHER_LIST, SSL_R_NO_CIPHER_MATCH);
-		ERR_print_errors(bio_err);
-		exit(-1);
+	// used following cmd to get list of correct cipher lists
+	// $ openssl ciphers -tls1 "aRSA:AES:-kEDH:-ECDH:-SRP:-PSK:-NULL:-EXP:-MD5:-DES"
+	if(!SSL_CTX_set_cipher_list(ctx, "RC4-SHA")){
+		print_err();
 	}
 
 	if(role==CLIENT) {
-		SSL_CTX_use_certificate_file(ctx, "certs/client.pem", SSL_FILETYPE_PEM);
-		SSL_CTX_use_RSAPrivateKey_file(ctx, "certs/key.pem", SSL_FILETYPE_PEM);
+		SSL_CTX_use_certificate_file(ctx, "../certs/client.pem", SSL_FILETYPE_PEM);
+		SSL_CTX_use_RSAPrivateKey_file(ctx, "../certs/key.pem", SSL_FILETYPE_PEM);
 
 	} else if(role==SERVER) {
-		SSL_CTX_use_certificate_file(ctx, "certs/demoCA/cacert.pem", SSL_FILETYPE_PEM);
-		SSL_CTX_use_RSAPrivateKey_file(ctx, "certs/demoCA/private/cakey.pem", SSL_FILETYPE_PEM);
+		SSL_CTX_use_certificate_file(ctx, "../certs/demoCA/cacert.pem", SSL_FILETYPE_PEM);
+		SSL_CTX_use_RSAPrivateKey_file(ctx, "../certs/demoCA/private/cakey.pem", SSL_FILETYPE_PEM);
 	}
 
 	if(!SSL_CTX_check_private_key(ctx)) {
-		cout << str_role << ": dooong. wow" << endl;
-		ERR_print_errors(bio_err);
-		exit(-1);
+		if (SSL_DEBUG) cout << str_role << ": dooong. wow" << endl;
+		print_err();
 	}
 }
 
 SSL_CONN::~SSL_CONN() {
-
+	// todo ...
+	ERR_free_strings();
+	cout << "deconstructor end" << endl;
 }
+
+
+
+
 
 void SSL_CONN::start() {
 	// Start SSL-connection as client
@@ -77,20 +85,19 @@ void SSL_CONN::start() {
 		 * get the error SSL_ERROR_WANT_WRITE. It's up to us to send
 		 * the data every now and then. So I am doing it here.
 		 */
-		if(role==CLIENT) snd_data();
+		snd_data();
 
 		/* The SSL_get_error() call categorizes errors into groups */
-		switch (SSL_get_error(conn, temp))
-		{
+		switch (SSL_get_error(conn, temp)) {
 		case SSL_ERROR_NONE:
 			/* Handshake has finished successfully. */
 			done = 1;
 			break;
 		case SSL_ERROR_SSL:
 			/* Handshake error - report and exit. */
-			cout << str_role <<  " ERROR: Handshake failure\n" << endl;
-			//goto error;
-			ERR_print_errors(bio_err);
+			if (SSL_DEBUG) cout << str_role << ": available " << SSL_get_cipher_list(conn, 0) << endl;
+			if (SSL_DEBUG) cout << str_role << ": ERROR: Handshake failure\n" << endl;
+			print_err();
 			break;
 		case SSL_ERROR_SYSCALL:
 			/* System call error. This error is different from
@@ -101,9 +108,8 @@ void SSL_CONN::start() {
 			 * logging. This is because the error could be a
 			 * 'retry' error of which the library is unaware.
 			 */
-			cout << str_role << " ERROR: System call error = ...\n" << endl;
-			cout << str_role << " " << ERR_error_string(ERR_get_error(), NULL) << endl;
-			//goto error;
+			if (SSL_DEBUG) cout << str_role << " ERROR: System call error = ...\n" << endl;
+			print_err();
 			break;
 		case SSL_ERROR_WANT_READ:
 			rcv_data();
@@ -122,42 +128,38 @@ void SSL_CONN::start() {
 			 * because the socket was closed). If the socket is
 			 * closed, the protocol has failed.
 			 */
-			cout << str_role << ": socket closed\n" << endl;
+			if (SSL_DEBUG) cout << str_role << ": socket closed\n" << endl;
 			break;
 		}
-
-		boost::this_thread::sleep(boost::posix_time::seconds(1));
+		sleep(1);
 	}
-
 }
 
 
 void SSL_CONN::rcv_data() {
 
-	cout << str_role << ": Looking for Handshake data " << endl;
+	if (SSL_DEBUG) cout << str_role << ": Check read buffer ... " << endl;
 
-	unsigned char buf[256];
+	unsigned char buf[1024];
 	while(socket->available()>0) {
 
 		// blocking socket
 		int len = socket->receive(boost::asio::buffer(&buf, sizeof(buf)));
 		BIO_write(bioIn,buf,len);
 
-
-		cout << str_role << ": rcv " << len << " bytes" << endl;
+		if (SSL_DEBUG) cout << str_role << ": rcv " << len << " bytes" << endl;
 	}
 }
 
 void SSL_CONN::snd_data() {
-	cout << str_role << ": send handshake data ... " << endl;
+	if (SSL_DEBUG) cout << str_role << ": Check send buffer ... " << endl;
 
 	unsigned char buf[1024];
 	while(BIO_ctrl_pending(bioOut) > 0) {
-
 		int len = BIO_read(bioOut,buf,sizeof(buf));
 		socket->send(boost::asio::buffer(buf, len));
 
-		cout << str_role << ": send " << len << endl;
+		if (SSL_DEBUG) cout << str_role << ": send " << len << endl;
 	}
 
 }
@@ -166,4 +168,10 @@ int pem_passwd_cb(char *buf, int size, int rwflag, void *password) {
 	strncpy(buf, (char *)(password), size);
 	buf[size - 1] = '\0';
 	return(strlen(buf));
+}
+
+void SSL_CONN::print_err() {
+	//ERR_print_errors(bio_err);
+	cerr << str_role << ": " << ERR_error_string(ERR_get_error(), NULL) << endl;
+	exit(-1);
 }

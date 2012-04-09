@@ -12,8 +12,10 @@
 using namespace std;
 using boost::asio::ip::tcp;
 
-enum role {SERVER, CLIENT};
+const bool SSL_DEBUG = true;
 
+enum role {SERVER, CLIENT};
+const size_t BUFSIZE = 256;
 
 
 class SSL_CONN{
@@ -36,6 +38,8 @@ private:
 
 	void snd_data();
 	void rcv_data();
+	void print_err();
+
 };
 
 int pem_passwd_cb(char *buf, int size, int rwflag, void *userdata);

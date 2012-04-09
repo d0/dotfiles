@@ -19,7 +19,7 @@ public:
 	Server();
 	~Server();
 
-	void operator()();
+	void start();
 
 private:
 

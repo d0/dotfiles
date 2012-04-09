@@ -19,7 +19,6 @@ public:
 	Client();
 	~Client();
 
-	void operator()();
 	void connect();
 
 private:
