@@ -1,1 +1,0 @@
-V	130403204512Z		01	unknown	/C=de/ST=client/L=client/O=client/OU=client/CN=client
