@@ -19,5 +19,5 @@ fi
 #/usr/bin/xscreensaver -no-splash &
 #xrdb -merge ~/.Xresources
 #exec ck-launch-session dbus-launch xmonad
-exec ck-launch-session dbus-launch startxfce4
+exec startxfce4
 # ...or the Window Manager of your choice
