@@ -49,7 +49,7 @@ match ExtraWhitespaces /\s\+$/
 
 set tags=./tags;$HOME "Recursively search for the tags file up til $HOME
 " build tags of your own project with Ctrl-F12
-map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .
+map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 "
 "Disable arrow keys
 noremap <up> <nop>
