@@ -33,6 +33,9 @@ if v:version >= 700
     let OmniCpp_ShowPrototypeInAbbr = 1 "show prototype in pop-up
     let OmniCpp_ShowAccess          = 1 "show access in pop-up
     let OmniCpp_SelectFirstItem     = 1 "select first item in pop-up
+    let OmniCpp_MayCompleteDot      = 1 "complete after '.'
+    let OmniCpp_MayCompleteArrow    = 1 "complete after '->'
+    let OmniCpp_MayCompleteScope    = 1 "complete after '->'
     set completeopt=menuone,menu,longest
 endif
 
@@ -44,6 +47,10 @@ colorscheme solarized
 highlight ExtraWhitespaces ctermbg=darkgreen guibg=lightgreen
 match ExtraWhitespaces /\s\+$/
 
+set tags=./tags;$HOME "Recursively search for the tags file up til $HOME
+" build tags of your own project with Ctrl-F12
+map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .
+"
 "Disable arrow keys
 noremap <up> <nop>
 noremap <down> <nop>
