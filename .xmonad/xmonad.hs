@@ -9,6 +9,7 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Util.Run
 import XMonad.Util.Themes
 import XMonad.Util.Scratchpad
+import XMonad.Layout.Fullscreen
 import XMonad.Layout.IM
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.NoBorders
@@ -243,37 +244,32 @@ manageScratchPad = scratchpadManageHook (W.RationalRect l t w h)
 --
 -- myStartupHook = return ()
 
-myLayouts = avoidStruts (tall)
-    where
-        tall   = Tall nmaster delta ratio
-        nmaster = 1
-        delta   = 3/100
-        ratio   = 1/2
-
-        myTheme = theme smallClean -- default Theme
-
+myLayouts = avoidStruts (
+    Tall 1 (3/100) (1/2) |||
+    Mirror (Tall 1 (3/100) (1/2))) |||
+    noBorders (fullscreenFull Full)
 
 main = do
-xmproc <- spawnPipe "/usr/bin/xmobar"
-xmonad $ defaultConfig
-    { terminal          = myTerminal
-    , modMask           = myModMask
-    , borderWidth       = myBorderWidth
-    , focusFollowsMouse = myFocusFollowsMouse
-    , workspaces        = myWorkspaces
-    , normalBorderColor = myNormalBorderColor
-    , focusedBorderColor = myFocusedBorderColor
+    xmproc <- spawnPipe "/usr/bin/xmobar"
+    xmonad $ defaultConfig
+        { terminal          = myTerminal
+        , modMask           = myModMask
+        , borderWidth       = myBorderWidth
+        , focusFollowsMouse = myFocusFollowsMouse
+        , workspaces        = myWorkspaces
+        , normalBorderColor = myNormalBorderColor
+        , focusedBorderColor = myFocusedBorderColor
 
-    --key bindings
-    , keys              = myKeys
+        --key bindings
+        , keys              = myKeys
 
-    --xmobar
---    , manageHook        = manageDocks <+> myManageHook defaultConfig
-    , manageHook        = myManageHook
-    , layoutHook        = smartBorders (myLayouts) -- Don't put vorders on fullFloatWindows
-    , logHook           = dynamicLogWithPP xmobarPP
-        { ppOutput      = hPutStrLn xmproc
-        , ppTitle       = xmobarColor "green" "" . shorten 50
-        , ppLayout      = const "" -- to disable the layout info on xmobar
+        --xmobar
+        --    , manageHook        = manageDocks <+> myManageHook defaultConfig
+        , manageHook        = myManageHook
+        , layoutHook        = smartBorders (myLayouts) -- Don't put vorders on fullFloatWindows
+        , logHook           = dynamicLogWithPP xmobarPP
+            { ppOutput      = hPutStrLn xmproc
+            , ppTitle       = xmobarColor "green" "" . shorten 50
+            , ppLayout      = const "" -- to disable the layout info on xmobar
+            }
         }
-    }
