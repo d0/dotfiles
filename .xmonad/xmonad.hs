@@ -268,8 +268,9 @@ xmonad $ defaultConfig
     , keys              = myKeys
 
     --xmobar
-    , manageHook        = manageDocks <+> manageHook defaultConfig
-    , layoutHook        = myLayouts
+--    , manageHook        = manageDocks <+> myManageHook defaultConfig
+    , manageHook        = myManageHook
+    , layoutHook        = smartBorders (myLayouts) -- Don't put vorders on fullFloatWindows
     , logHook           = dynamicLogWithPP xmobarPP
         { ppOutput      = hPutStrLn xmproc
         , ppTitle       = xmobarColor "green" "" . shorten 50

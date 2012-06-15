@@ -21,5 +21,5 @@ xrdb -merge ~/.Xresources
 #nitrogen --restore
 exec ck-launch-session dbus-launch xmonad
 
-#exec ck-launch-session dbus-launch startxfce4
+#exec ck-launch-session dbus-launch --exit-with-session startxfce4
 # ...or the Window Manager of your choice
