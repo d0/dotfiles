@@ -1,19 +1,35 @@
 set incsearch
 set ignorecase
 set smartcase
+set showmatch
+set gdefault
 
 set smartindent
 set tabstop=4
 set shiftwidth=4
+set softtabstop=4
 set expandtab
 
-set backspace=2
+set backspace=indent,eol,start
+set ttyfast
+set cursorline
 set hlsearch
-
-set wrap
+set wildmenu
+set wildmode=list:longest
+set laststatus=2
+set scrolloff=3
 set number
 set ruler
+set showcmd
+set showmode
 
+set wrap
+set textwidth=79
+set colorcolumn=85
+
+set nocompatible
+
+filetype off
 call pathogen#infect()
 
 syntax enable
@@ -60,6 +76,16 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+
+"Use "," as leader key
+let mapleader = ","
+
+"Use <leader><space> to clean search highlighting
+nnoremap <leader><space> :noh<cr>
+
+"Use <tab> instead of % to match brackets
+nnoremap <tab> %
+vnoremap <tab> %
 
 "Improve up/down navigation for wrapped lines
 nnoremap j gj
