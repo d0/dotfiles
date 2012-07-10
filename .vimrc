@@ -87,6 +87,8 @@ nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
 
+nnoremap <f2> :NERDTreeToggle<cr>
+
 "Improve up/down navigation for wrapped lines
 nnoremap j gj
 nnoremap k gk
