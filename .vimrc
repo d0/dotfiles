@@ -22,6 +22,8 @@ set number
 set ruler
 set showcmd
 set showmode
+set autoindent
+set cindent
 
 set wrap
 set textwidth=79
@@ -57,7 +59,6 @@ endif
 
 set background=dark
 let g:solarized_termtrans=1
-let g:solarized_termcolors=16
 colorscheme solarized
 
 highlight ExtraWhitespaces ctermbg=darkgreen guibg=lightgreen
