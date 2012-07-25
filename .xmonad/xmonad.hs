@@ -3,6 +3,7 @@ import Data.Monoid
 import Data.Ratio ((%))
 import System.Exit
 import System.IO
+import XMonad.Actions.FloatKeys
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -114,6 +115,10 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
     -- Lock the screen (xscreensaver daemon must be running)
     , ((modm              , xK_z     ), spawn "xscreensaver-command -lock")
+    -- Shrink the window in direction of the bottom-left corner
+    , ((modm              , xK_d     ), withFocused (keysResizeWindow (-10,-10) (1,1)))
+    -- Grow the window in direction of the bottom-left corner
+    , ((modm              , xK_s     ), withFocused (keysResizeWindow (10,10) (1,1)))
     ] ++
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
