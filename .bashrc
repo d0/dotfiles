@@ -11,8 +11,8 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 #Source git bash completion scripts so that __git_ps1 is defined
-#see: https://mailman.archlinux.org/pipermail/arch-general/2012-March/025886.html
-#source /usr/share/bash-completion/completions/git
+#see: https://bbs.archlinux.org/viewtopic.php?id=147462
+source /usr/share/git/git-prompt.sh
 
 #Add colors to core utils
 alias ls='ls --color=auto'
