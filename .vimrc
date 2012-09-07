@@ -96,3 +96,6 @@ nnoremap k gk
 
 "Turn off expandtab for Makefiles
 autocmd FileType make setlocal noexpandtab
+
+"Syntax highlighting for click files
+au BufRead,BufNewFile *.click* set filetype=click
