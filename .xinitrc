@@ -17,7 +17,7 @@ fi
 if [ "$HOSTNAME" == "trinity" ]
 then
     xsetroot -cursor_name left_ptr
-    setxkbmap -layout de
+    setxkbmap -layout de-latin1-nodeadkeys.map.gz
     /usr/bin/xscreensaver -no-splash &
     xrdb -merge ~/.Xresources
     #nitrogen --restore
