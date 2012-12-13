@@ -39,7 +39,7 @@ URxvt.scrollStyle: rxvt
 URxvt.scrollBar: false
 
 ! Perl extensions
-URxvt.perl-ext-common: default,clipboard,keyboard-select,matcher,tabbed,url-select
+URxvt.perl-ext-common: default,clipboard,keyboard-select,matcher,url-select
 URxvt.matcher.button: 1
 URxvt.urlLauncher: firefox
 URxvt.underlineURLs: true
