@@ -16,7 +16,7 @@ case $1 in
 xmonad)
     xsetroot -cursor_name left_ptr
     setxkbmap -layout de-latin1-nodeadkeys.map.gz
-    #/usr/bin/xscreensaver -no-splash &
+    /usr/bin/xscreensaver -no-splash &
     xrdb -merge ~/.Xresources
     #nitrogen --restore
     [ -f ~/.xprofile ] && . ~/.xprofile
