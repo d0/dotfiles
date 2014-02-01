@@ -1,0 +1,4 @@
+language: C
+compiler: gcc
+script: autoreconf -vsi && ./configure --enable-openssl-install && make && make test-eactest
+
