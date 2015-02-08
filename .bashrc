@@ -36,17 +36,14 @@ PS1="\[\e[2;37m\][\A] \[\e[32m\]\w\[\e[35m\] \$(scm_ps1)\[\e[31m\]\$\[\e[0m\] "
 #PS1="\[\033[00;32m\]\u\[\033[00;32m\]@\[\033[00;32m\]\h:\[\033[01;34m\]\w \[\033[31m\]\$(scm_ps1)\[\033[00m\]$\[\033[00m\] "
 
 ### GPG agent config
-
-if [ -f "${HOME}/.gpg-agent-info" ]; then
-	. "${HOME}/.gpg-agent-info"
-	export GPG_AGENT_INFO
-	export SSH_AUTH_SOCK
-	export SSH_AGENT_PID
+envfile="$HOME/.gnupg/gpg-agent.env"
+if [[ -e "$envfile" ]] && kill -0 $(grep GPG_AGENT_INFO "$envfile" | cut -d: -f 2) 2>/dev/null; then
+    eval "$(cat "$envfile")"
+else
+    eval "$(gpg-agent --daemon --enable-ssh-support --write-env-file "$envfile")"
 fi
-# this avoid the passwd being asked on the console while in X
-echo UPDATESTARTUPTTY | gpg-connect-agent 2>/dev/null > /dev/null
-GPG_TTY=$(tty)
-export GPG_TTY
+export GPG_AGENT_INFO  # the env file does not contain the export statement
+export SSH_AUTH_SOCK   # enable gpg-agent for ssh
 
 ### end
 
@@ -56,8 +53,6 @@ complete -cf sudo
 export EDITOR='vim'
 
 export PATH=$PATH:/home/do/CodeSourcery/Sourcery_G++_Lite/bin:/usr/hitech/picc/9.83/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/do/workspace/brn/./click-brn/ns/:/home/do/workspace/brn/./ns2/lib
-export PATH=/home/do/workspace/brn/./ns2/bin/:/home/do/workspace/brn/./click-brn/userlevel/:/home/do/workspace/brn/./click-brn/tools/click-align/:/home/do/workspace/brn/./helper/simulation/bin/:/home/do/workspace/brn/./helper/evaluation/bin:$PATH
-export PATH=$PATH:/opt/java/jre/bin/:$HOME/.local/bin/
-export JAVA_HOME=/opt/java
+export PATH=$PATH:/opt/sun-java6/bin/:$HOME/.local/bin/
+export JAVA_HOME=/opt/sun-java6
 
